@@ -25,13 +25,17 @@ export default function Login({ navigation }) {
             password: password,
         });
 
-        console.log('Bem-vindo, ', response.headers['set-cookie'][0]);
+
 
         if (response.data.msg === 'ok') {
+            await AsyncStorage.setItem('sessionCookies', response.headers['set-cookie'][0]);
+            await AsyncStorage.setItem('username', user);
+
             navigation.navigate('Profile', { username: user });
 
             // Decidir:   guardar username no asyncStorage? guardar cookies no async storage ou enviar pelo navigation ?
         }
+
     }
 
     return (
