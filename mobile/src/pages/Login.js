@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, AsyncStorage, TouchableOpacity, Image, StyleSheet, KeyboardAvoidingView, Platform } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, Image, StyleSheet, KeyboardAvoidingView, Platform } from 'react-native';
 
 import logo from '../assets/logo.png';
 import api from '../services/api';
@@ -10,7 +10,7 @@ export default function Login({ navigation }) {
 
     const [user, setUser] = useState('');
     const [password, setPassword] = useState('');
-
+    /*
     useEffect(() => {
         AsyncStorage.getItem('sessionCookie').then(sessionCookie => {
             if (sessionCookie) {
@@ -18,6 +18,7 @@ export default function Login({ navigation }) {
             }
         });
     }, []);
+    */
 
     async function handleLogin() {
         const response = await api.post('/login', {
@@ -28,10 +29,13 @@ export default function Login({ navigation }) {
 
 
         if (response.data.msg === 'ok') {
-            await AsyncStorage.setItem('sessionCookies', response.headers['set-cookie'][0]);
-            await AsyncStorage.setItem('username', user);
 
-            navigation.navigate('Profile', { username: user });
+            console.log(` ---->  ${response.headers['set-cookie'][0].split('sessionCookies=')[1].split(';')[0]}`);
+
+            //await AsyncStorage.setItem('sessionCookies', response.headers['set-cookie'][0].split('sessionCookies=')[1].split(';')[0]);
+            // await AsyncStorage.setItem('username', user);
+
+            navigation.navigate('Profile', { username: user, sessao: response.headers['set-cookie'][0].split('sessionCookies=')[1].split(';')[0] });
 
             // Decidir:   guardar username no asyncStorage? guardar cookies no async storage ou enviar pelo navigation ?
         }

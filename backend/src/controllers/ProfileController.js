@@ -1,17 +1,27 @@
 const api = require('instagram-private-api');
+const { base64encode, base64decode } = require('nodejs-base64');
+
+//const base64 = require('react-native-base64');
 
 module.exports = {
     async store(req, res) {
-        const { session_cookies } = await req.headers;
+
+        //console.log('teste | entrou')
+
+        //const { session_cookies } = await req.headers;
+
+        console.log(`${req.cookies.sessionCookies}`);
+
+        //console.log(`<<<---- ${session_cookies}`);
 
         var ig = new api.IgApiClient();
 
 
         //console.log(`testingggg:> ${JSON.parse(decodeURIComponent(session_cookies))}`)
 
-        const intermediario = JSON.parse(decodeURIComponent(session_cookies));
+        const intermediario = JSON.parse(req.cookies.sessionCookies);
 
-        console.log(`----> ${intermediario.cookies.cookies[0].value}`)
+        // console.log(`----> ${intermediario.cookies.cookies[0].value}`)
         //console.log(`----< ${JSON.stringify(intermediario.state)}`)
 
 
@@ -23,6 +33,7 @@ module.exports = {
         ig.state.phoneId = intermediario.state.phoneId;
         ig.state.adid = intermediario.state.adid;
         ig.state.build = intermediario.state.build;
+
 
 
         const auth = await ig.user.info(
