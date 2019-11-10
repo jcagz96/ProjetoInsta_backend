@@ -70,7 +70,7 @@ export default function Login({ navigation }) {
                 />
 
                 <TouchableOpacity style={styles.button} onPress={handleLogin}>
-                    <Text style={styles.buttonText}>Encontrar spots</Text>
+                    <Text style={styles.buttonText}>Login</Text>
                 </TouchableOpacity>
 
             </View>

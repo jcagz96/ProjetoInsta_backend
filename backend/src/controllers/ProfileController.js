@@ -6,26 +6,11 @@ const { base64encode, base64decode } = require('nodejs-base64');
 module.exports = {
     async store(req, res) {
 
-        //console.log('teste | entrou')
-
-        //const { session_cookies } = await req.headers;
-
-        console.log(`${req.cookies.sessionCookies}`);
-
-        //console.log(`<<<---- ${session_cookies}`);
+        console.log(`[ProfileControllers.js]   |   /profile `);
 
         var ig = new api.IgApiClient();
 
-
-        //console.log(`testingggg:> ${JSON.parse(decodeURIComponent(session_cookies))}`)
-
         const intermediario = JSON.parse(req.cookies.sessionCookies);
-
-        // console.log(`----> ${intermediario.cookies.cookies[0].value}`)
-        //console.log(`----< ${JSON.stringify(intermediario.state)}`)
-
-
-
         await ig.state.deserializeCookieJar(intermediario.cookies);
         ig.state.deviceString = intermediario.state.deviceString;
         ig.state.deviceId = intermediario.state.deviceId;

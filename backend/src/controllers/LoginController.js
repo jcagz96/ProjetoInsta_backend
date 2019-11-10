@@ -4,10 +4,11 @@ const cookieParser = require('cookie-parser');
 
 module.exports = {
     async store(req, res) {
+        console.log(`[   LoginController.js]   |   /login `);
+
         var ig = new api.IgApiClient();
 
         const { username, password } = await req.body;
-        console.log(`username: ${username}   ,   password: ${password}`);
 
         ig.state.generateDevice(username);
         await ig.account.login(username, password);
