@@ -27,11 +27,11 @@ async function getAllItemsFromFeed(feed) {
 
 module.exports = {
     async store(req, res) {
-        const { session_cookies } = await req.headers;
+
+        console.log(`[NonFollowersController.js]   |   /nonFollowers `);
 
 
-
-        const intermediario = JSON.parse(decodeURIComponent(session_cookies));
+        const intermediario = JSON.parse(req.cookies.sessionCookies);
 
         await ig.state.deserializeCookieJar(intermediario.cookies);
         ig.state.deviceString = intermediario.state.deviceString;
